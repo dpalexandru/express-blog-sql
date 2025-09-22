@@ -12,18 +12,24 @@ const index = (req, res) => {
 
 //definisco funzione Show
 const show = (req, res) => {
-    const id = parseInt(req.params.id);
+    const { id } = req.params;
 
-    //trovo l'elemento nell'array posts attraverso l'id
-    const post = posts.find(item => item.id === id);
+    // preparo la query
+    const postSql = "SELECT * FROM posts WHERE id = ?";
 
-    //verifico se la pizza è stata trovata 
-    if (!post) {
-        return res.status(404).json({ error: "404 Not found", message: "post non trovato" })
-    }
+    connection.query(postSql, [id], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: "Errore nell'esecuzione della query" });
+        }
 
-    res.send(post);
-}
+        if (results.length === 0) {
+            return res.status(404).json({ error: "Post non trovato" });
+        }
+
+        // ritorno il post trovato
+        res.json(results[0]);
+    });
+};
 
 //definisco funzione Store
 const store = (req, res) => {
