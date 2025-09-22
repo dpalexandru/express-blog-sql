@@ -1,27 +1,13 @@
-const posts = require('../data/posts.js');
+const connection = require('../data/db.js');
 
 //definisco funzione Index
 const index = (req, res) => {
-    let filteredPostsByTag = posts;
-
-    if (req.query.tags) {
-        const tagSearched = req.query.tags.toLowerCase();
-
-        filteredPostsByTag = posts.filter(post => {
-            // Preparo una copia dell'array di tag già in lowercase
-            const lowerTags = post.tags.map(t => t.toLowerCase());
-            return lowerTags.includes(tagSearched);
-        });
-
-        if (filteredPostsByTag.length === 0) {
-            return res.status(404).json({
-                error: "404 Not found",
-                message: "post non trovato con il tag ricercato"
-            })
-        }
-    }
-
-    res.json(filteredPostsByTag);
+    const sql = "SELECT * FROM posts";
+    //eseguo 
+    connection.query(sql, (err, results) => {
+        if (err) return res.status(500).json({ error: "Errorre nell'esecuzione della querry" })
+        res.json(results)
+    })
 };
 
 //definisco funzione Show

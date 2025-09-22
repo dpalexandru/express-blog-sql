@@ -3,7 +3,9 @@ express-blog-sql
 ### Esercizio
 Ciao ragazzi, esercizio di oggi: ex-express-blog-sql repo: express-blog-sql
 Esercizio
-Prendiamo le API precedentemente create per il vostro blog ed aggiungiamo la persistenza tramite la connessione a un DB Milestone 1
+Prendiamo le API precedentemente create per il vostro blog ed aggiungiamo la persistenza tramite la connessione a un
+
+ DB Milestone 1
 Importiamo il db in allegato su MySQL Workbench
 Installiamo il client mysql2 con npm i mysql2 nell’app Express
 Creiamo un file di configurazione per connettere il database
